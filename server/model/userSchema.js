@@ -6,6 +6,6 @@ const Schema = mongoose.Schema({
   phone: { type: Number, required: true },
 });
 
-const UserSchema = mongoose.model("user", Schema);
+const User = mongoose.model("user", Schema);
 
-module.exports = UserSchema;
+module.exports = User;
