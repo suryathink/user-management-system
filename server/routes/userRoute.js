@@ -20,6 +20,19 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+    try {
+        let id = req.params.id;
+
+        let user = await User.findOne( { _id:id })
+        res.status(200).send(user)
+    } catch (error) {
+        res.status(500).send(error.message);
+      }
+});
+
+
+
 router.post("/", async (req, res) => {
   try {
     const user = await User.create(req.body);
