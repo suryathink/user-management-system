@@ -5,7 +5,6 @@ dotenv.config();
 
 const PASSWORD =  dotenv.PASSWORD;
 const USERNAME = dotenv.USERNAME;
-// mongodb+srv://ShunyEka:<password>@cluster0.vn1x1js.mongodb.net/
 
 async function connectDatabase() {
   try {
