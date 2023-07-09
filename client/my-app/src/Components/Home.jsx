@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import Button from "react-bootstrap/Button";
-
-// import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import { Link } from "react-router-dom";
 
 
 const Home = () => {
@@ -34,9 +32,12 @@ const Home = () => {
   return (
     <div>
     <br/>
+    {/* <li><Link to="/">Home</Link></li> */}
+    <Link to="/edit">
       <Button variant="primary" size="lg" active>
-        Add User
+     Add User
       </Button>{" "}
+      </Link>
       <br/>
       <div>
 
@@ -47,8 +48,9 @@ const Home = () => {
             <TableCell align="center">Serial Number</TableCell>
             <TableCell align="center">_id</TableCell>
             <TableCell align="center">Name</TableCell>
-            <TableCell align="center">Email Id</TableCell>
-            <TableCell align="center">Phone Number</TableCell>
+            <TableCell align="center">VIEW</TableCell>
+            <TableCell align="center">EDIT</TableCell>
+            <TableCell align="center">DELETE</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -62,8 +64,9 @@ const Home = () => {
                 {row._id}
               </TableCell>
               <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.phone}</TableCell>
+              <TableCell align="center"><Link to="/view">{<Button variant="outlined" color="blue">View</Button>}</Link></TableCell> 
+            <TableCell align="center">{  <Link to="/edit"> <Button variant="outlined">Edit</Button></Link>}</TableCell> 
+              <TableCell align="center"><Link to="/delete">{<Button variant="outlined">Delete</Button>}</Link></TableCell>
             </TableRow>
           ))}
         </TableBody>
