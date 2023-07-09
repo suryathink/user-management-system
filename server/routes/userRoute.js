@@ -32,4 +32,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+router.put("/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
+
+    let updatedUser = await User.findOneAndUpdate({ _id: id }, req.body, {
+      new: true,
+    });
+    res.status(200).send(updatedUser);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+
+
 module.exports = router;
