@@ -25,6 +25,10 @@ router.get("/:id", async (req, res) => {
         let id = req.params.id;
 
         let user = await User.findOne( { _id:id })
+        if (!user){
+           return res.status(400).send("User With This Id Does not Exists")
+
+        }
         res.status(200).send(user)
     } catch (error) {
         res.status(500).send(error.message);
@@ -58,6 +62,22 @@ router.put("/:id", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+
+router.delete("/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
+
+    let deletedUser = await User.findOneAndDelete({ _id: id });
+    res.status(200).send({
+        deletedUser,
+        message:"User Deleted Successfully"
+    });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+
 
 
 
