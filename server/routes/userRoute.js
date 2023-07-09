@@ -18,3 +18,21 @@ router.get("/", async (req, res) => {
     });
   }
 });
+
+
+router.post('/', async (req,res)=>{
+    try {
+        let {name,email,phone} = req.params;
+
+        const user = await addUser({
+            name,email,phone
+        })
+
+        return res.send({
+            data:user
+        })
+
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+})
