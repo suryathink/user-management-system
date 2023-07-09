@@ -1,8 +1,9 @@
-const { Router } = require("express");
+// const { Router } = require("express");
+// const router = Router();
+const express = require("express");
 
 const User = require("../model/userSchema");
-
-const router = Router();
+const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
@@ -19,20 +20,16 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const user = await User.create(req.body);
 
-router.post('/', async (req,res)=>{
-    try {
-        let {name,email,phone} = req.params;
+    return res.send({
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
-        const user = await addUser({
-            name,email,phone
-        })
-
-        return res.send({
-            data:user
-        })
-
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-})
+module.exports = router;

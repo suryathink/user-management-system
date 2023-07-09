@@ -1,18 +1,20 @@
 const mongoose = require("mongoose");
-mongoose.set("strictQuery", true);
 const dotenv = require("dotenv");
 dotenv.config();
+mongoose.set("strictQuery", true);
 
-const PASSWORD =  dotenv.PASSWORD;
-const USERNAME = dotenv.USERNAME;
+const PASSWORD = process.env.PASSWORD;
+const USERNAME = process.env.USERNAME;
 
 async function connectDatabase() {
   try {
     await mongoose.connect(
-      `mongodb+srv://${USERNAME}:${PASSWORD}@cluster0.atctit0.mongodb.net/?retryWrites=true&w=majority`
+      // `mongodb+srv://${USERNAME}:${PASSWORD}@cluster0.atctit0.mongodb.net/?retryWrites=true&w=majority`
+      `mongodb+srv://ShunyEka:${PASSWORD}@cluster0.vn1x1js.mongodb.net/`
     );
     console.log("Connected to Database");
   } catch (error) {
+    console.log(error);
     console.error("Could not connect to the database");
   }
 }
