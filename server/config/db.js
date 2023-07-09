@@ -9,7 +9,6 @@ const USERNAME = process.env.USERNAME;
 async function connectDatabase() {
   try {
     await mongoose.connect(
-      // `mongodb+srv://${USERNAME}:${PASSWORD}@cluster0.atctit0.mongodb.net/?retryWrites=true&w=majority`
       `mongodb+srv://ShunyEka:${PASSWORD}@cluster0.vn1x1js.mongodb.net/`
     );
     console.log("Connected to Database");
