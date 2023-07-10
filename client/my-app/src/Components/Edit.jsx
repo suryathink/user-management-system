@@ -67,7 +67,7 @@ function Edit() {
           setEmail("")
           setName("")
           setPhone("")
-          toast.success("Updated");
+          toast.success("New User Added");
           navigate("/")
       
 
@@ -104,7 +104,7 @@ function Edit() {
           setEmail("")
           setName("")
           setPhone("")
-          toast.success("Updated");
+          toast.success("User Updated");
           navigate("/")
 
       } catch (error) {
