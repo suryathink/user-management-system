@@ -9,22 +9,53 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from "react-router-dom";
-
+import {useDispatch,useSelector } from "react-redux";
 
 const Home = () => {
   const [data, setData] = useState([]);
-
+  const dispatch = useDispatch();
   const getData = async () => {
     try {
       let result = await fetch(`http://localhost:8080/users`);
       result = await result.json();
       // console.log(result.users);
       setData(result.users);
+
+      dispatch({
+        type: "ADD",
+        payload:result.users
+      })
+      
       console.log("Inside State", data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // Storing _id to local storage for Viewing Purpose
+  const handleView = (row)=>{
+   localStorage.setItem("viewId",JSON.stringify(row._id))
+  }
+  
+  // Deleting the User with Specific ID
+  const handleDelete = async (row)=>{
+    let idToBeDeleted = row._id;
+    // localStorage.setItem("deleteID",JSON.stringify(row._id))
+    
+    try {
+      let response = await fetch(`http://localhost:8080/users/${idToBeDeleted}`,{
+        method: 'DELETE',
+        headers: {
+          'Content-type': 'application/json'
+      }
+      })
+      response = await response.json();
+      console.log("Deleted " + response)
+    } catch (error) {
+      console.log("User Deletion Failed");
+    }
+
+  }
 
   useEffect(() => {
     getData();
@@ -64,9 +95,9 @@ const Home = () => {
                 {row._id}
               </TableCell>
               <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center"><Link to="/view">{<Button variant="outlined" color="blue">View</Button>}</Link></TableCell> 
+              <TableCell align="center"><Link to="/view">{<Button onClick={()=>{handleView(row)}} variant="outlined" color="blue">View</Button>}</Link></TableCell> 
             <TableCell align="center">{  <Link to="/edit"> <Button variant="outlined">Edit</Button></Link>}</TableCell> 
-              <TableCell align="center"><Link to="/delete">{<Button variant="outlined">Delete</Button>}</Link></TableCell>
+              <TableCell align="center">{<Button onClick={()=>{handleDelete(row)}} variant="outlined">Delete</Button>}</TableCell>
             </TableRow>
           ))}
         </TableBody>

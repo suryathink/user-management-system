@@ -2,7 +2,10 @@ import React from 'react'
 
 const View = () => {
   return (
-    <div>View</div>
+    <div>View
+    <br/>
+    Item Deleted
+    </div>
   )
 }
 
