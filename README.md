@@ -14,3 +14,7 @@ See App [Live Here](https://user-management-system-476r.vercel.app/)
       1. Node.js
       2. Express.js
       3. MongoDB   
+
+   ## Deployment
+      1. Frontend Deployed on Vercel
+      2. Backend Deployed on Cyclic      
