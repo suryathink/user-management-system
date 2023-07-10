@@ -42,7 +42,6 @@ const Home = () => {
   // Deleting the User with Specific ID
   const handleDelete = async (row)=>{
     let idToBeDeleted = row._id;
-    // localStorage.setItem("deleteID",JSON.stringify(row._id))
     
     try {
       let response = await fetch(`http://localhost:8080/users/${idToBeDeleted}`,{
@@ -52,24 +51,31 @@ const Home = () => {
       }
       })
       response = await response.json();
-      // console.log("Deleted " + response)     
       getData();
      
     } catch (error) {
-      console.log("User Deletion Failed");
+      alert(`User Deletion Failed`)
     }
 
+  }
+
+  // Handle Edit
+
+  const handleEdit = (row)=>{
+    localStorage.setItem("EDIT_ID",JSON.stringify(row._id))
   }
 
   useEffect(() => {
     getData();
   }, []);
+
+
+
   return (
     <div>
     <br/>
-    {/* <li><Link to="/">Home</Link></li> */}
     <Link to="/edit">
-      <Button variant="primary" size="lg" active>
+      <Button onClick={()=>{localStorage.removeItem("EDIT_ID")}} variant="primary" size="lg" active>
      Add User
       </Button>{" "}
       </Link>
@@ -100,7 +106,7 @@ const Home = () => {
               </TableCell>
               <TableCell align="center">{row.name}</TableCell>
               <TableCell align="center"><Link to="/view">{<Button onClick={()=>{handleView(row)}} variant="outlined" color="blue">View</Button>}</Link></TableCell> 
-            <TableCell align="center">{  <Link to="/edit"> <Button variant="outlined">Edit</Button></Link>}</TableCell> 
+            <TableCell align="center">{  <Link to="/edit"> <Button  onClick={()=>{handleEdit(row)}} variant="outlined">Edit</Button></Link>}</TableCell> 
               <TableCell align="center">{<Button onClick={()=>{handleDelete(row)}} variant="outlined">Delete</Button>}</TableCell>
             </TableRow>
           ))}
