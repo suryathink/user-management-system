@@ -22,15 +22,13 @@ const Home = () => {
     try {
       let result = await fetch(`http://localhost:8080/users`);
       result = await result.json();
-      // console.log(result.users);
-      // setData(result.users);
 
       dispatch({
         type: "ADD",
         payload:result.users
       })
 
-      console.log("Inside State", data);
+      // console.log("Inside State", data);
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +52,9 @@ const Home = () => {
       }
       })
       response = await response.json();
-      console.log("Deleted " + response)
+      // console.log("Deleted " + response)     
+      getData();
+     
     } catch (error) {
       console.log("User Deletion Failed");
     }
