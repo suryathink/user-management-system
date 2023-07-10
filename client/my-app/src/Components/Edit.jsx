@@ -51,7 +51,7 @@ function Edit() {
   const addNewUser = async (event) =>{
       event.preventDefault();
       try {
-          let response = await fetch("http://localhost:8080/users", {
+          let response = await fetch("https://combative-blazer-moth.cyclic.app/users", {
           method: "POST",
           body: JSON.stringify({
           name: name,
@@ -89,7 +89,7 @@ function Edit() {
     }
     
       try {
-          let response = await fetch(`http://localhost:8080/users/${id}`, {
+          let response = await fetch(`https://combative-blazer-moth.cyclic.app/users/${id}`, {
           method: "PUT",
           headers: {
             "Content-type": "application/json; charset=UTF-8"

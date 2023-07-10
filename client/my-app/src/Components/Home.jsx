@@ -21,7 +21,7 @@ const Home = () => {
 
   const getData = async () => {
     try {
-      let result = await fetch(`http://localhost:8080/users`);
+      let result = await fetch(`https://combative-blazer-moth.cyclic.app/users`);
       result = await result.json();
 
       dispatch({
@@ -45,7 +45,7 @@ const Home = () => {
     let idToBeDeleted = row._id;
     
     try {
-      let response = await fetch(`http://localhost:8080/users/${idToBeDeleted}`,{
+      let response = await fetch(`https://combative-blazer-moth.cyclic.app/users/${idToBeDeleted}`,{
         method: 'DELETE',
         headers: {
           'Content-type': 'application/json'

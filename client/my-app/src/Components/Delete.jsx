@@ -8,7 +8,7 @@ const Delete = () => {
     const idToBeDeleted = localStorage.getItem("deleteID");
 
     try {
-      let response = await fetch(`http://localhost:8080/users/${idToBeDeleted}`);
+      let response = await fetch(`https://combative-blazer-moth.cyclic.app/users/${idToBeDeleted}`);
       response = await response.json();
       console.log("Deleted " + response);
       localStorage.removeItem("deleteID");
