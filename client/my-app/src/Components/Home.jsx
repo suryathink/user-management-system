@@ -12,20 +12,24 @@ import { Link } from "react-router-dom";
 import {useDispatch,useSelector } from "react-redux";
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const dispatch = useDispatch();
+
+  const data = useSelector(state => state.users);
+  console.log("Data",data)
+
   const getData = async () => {
     try {
       let result = await fetch(`http://localhost:8080/users`);
       result = await result.json();
       // console.log(result.users);
-      setData(result.users);
+      // setData(result.users);
 
       dispatch({
         type: "ADD",
         payload:result.users
       })
-      
+
       console.log("Inside State", data);
     } catch (error) {
       console.log(error);
