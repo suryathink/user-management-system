@@ -1,29 +1,37 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useState,useEffect,useRef } from 'react';
+import { useState,useEffect} from 'react';
 import {useSelector} from "react-redux"
+import {useNavigate} from "react-router-dom"
+import { toast } from 'react-toastify';
+
 
 function Edit() {
 
-  const Ref = useRef(null);
-  
+  const navigate = useNavigate()
+
   const [name,setName] = useState("");
   const [email,setEmail] = useState("");
   const [phone,setPhone] = useState("");
+  const [id,setId] = useState("");
+  
+  // This State will check whether EDIT_ID key is present in Local Storage or not and will update accordingly.
   const [isID,setIsID] = useState(false);
    
+  // Getting Data from Redux Store
   const data = useSelector(state => state.users);
-
+  var  EDIT_ID;
   
-  // Check if Local Storage is Empty or not If Yes then Call this function
-
 
   function getIDFromLocalStorage(){
 
   // Getting Id from Local Storage
-  const EDIT_ID = JSON.parse(localStorage.getItem("EDIT_ID"))
+   EDIT_ID = JSON.parse(localStorage.getItem("EDIT_ID"))
+   setId(EDIT_ID)
+   
+   console.log("Surya",id);
 
-  if (EDIT_ID) {
+  if (EDIT_ID!="") {
     setIsID(true);
   }
 
@@ -35,12 +43,11 @@ function Edit() {
   setEmail(filteredData[0].email)
   setPhone(filteredData[0].phone)
 
-  console.log("filteredData",filteredData);
 }
 
 
   
-
+  // This Function will be called whenever any new User is getting added to Database 
   const addNewUser = async (event) =>{
       event.preventDefault();
       try {
@@ -57,16 +64,56 @@ function Edit() {
       });
           response = await response.json()
           console.log(response);
-          localStorage.removeItem("EDIT_ID")
           setEmail("")
           setName("")
           setPhone("")
+          toast.success("Updated");
+          navigate("/")
+      
 
       } catch (error) {
         console.log(error)
       }
 
   }
+
+  
+
+  const updateUser = async (event) =>{
+    event.preventDefault();
+
+    const data = {
+      name: name,
+      email: email,
+      phone: phone
+    }
+    
+      try {
+          let response = await fetch(`http://localhost:8080/users/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+            },
+          body: JSON.stringify(data)
+        
+      });
+          response = await response.json()
+          console.log(response);
+
+          localStorage.removeItem("EDIT_ID")
+          setEmail("")
+          setName("")
+          setPhone("")
+          toast.success("Updated");
+          navigate("/")
+
+      } catch (error) {
+        console.log(error)
+      }
+
+  }
+
+
 
   useEffect(()=>{
     if (localStorage.getItem("EDIT_ID")){
@@ -111,9 +158,9 @@ function Edit() {
         />
         <label htmlFor="NumberInput">Number</label>
       </Form.Floating>
-  
+
    <div>
-   <Button ref={Ref} disabled = {name==="" || email==="" || phone===""}  onClick={addNewUser} variant="primary"> {isID ? "Update User" : "Add User" }</Button>{' '}
+   <Button disabled = {name==="" || email==="" || phone===""}  onClick={isID ? updateUser : addNewUser} variant="primary"> {isID ? "Update User" : "Add User" }</Button>{' '}
 
    </div>
     </div>
